@@ -11793,3 +11793,7 @@ div.v-layout.v-horizontal.v-widget {
 	width: 20px;
 	overflow: hidden;
 }
+
+.mytheme .v-table-resizer {
+	display: none;
+}

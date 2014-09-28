@@ -1,8 +1,7 @@
-package org.nirbo;
+package org.nirbo.Views;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
-import com.vaadin.shared.ui.MultiSelectMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.Table;
@@ -41,8 +40,13 @@ public class MessagesTabSheet extends TabSheet {
         showMessageTable.setBuffered(true);
         showMessageTable.setSelectable(true);
         showMessageTable.setMultiSelect(true);
-        showMessageTable.setMultiSelectMode(MultiSelectMode.DEFAULT);
         showMessageTable.setImmediate(true);
+        showMessageTable.setColumnExpandRatio("title", 2);
+        showMessageTable.setColumnExpandRatio("content", 2);
+        showMessageTable.setColumnExpandRatio("publishedDate", 1);
+        showMessageTable.setColumnExpandRatio("startDate", 1);
+        showMessageTable.setColumnExpandRatio("endDate", 1);
+        showMessageTable.setColumnExpandRatio("active", 0.4f);
 
         return showMessageTable;
     }

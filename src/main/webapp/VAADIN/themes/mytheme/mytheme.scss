@@ -51,4 +51,7 @@ $v-component-group-spacing: 6px;
   @include valo;
   // Insert your own theme rules here
 
+  .v-table-resizer {
+    display: none;
+  }
 }
