@@ -28,7 +28,7 @@ public class MainUI extends UI {
         vLayout.setMargin(true);
         setContent(vLayout);
 
-        MessageTabSheet mainTabSheet = new MessageTabSheet();
+        MessagesTabSheet mainTabSheet = new MessagesTabSheet();
         vLayout.addComponent(mainTabSheet);
     }
 

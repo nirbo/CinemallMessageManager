@@ -9,19 +9,19 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import org.nirbo.Model.SplashMessages;
 
-public class MessageTabSheet extends TabSheet {
+public class MessagesTabSheet extends TabSheet {
 
     Table messageTable;
     Label addMessageLabel;
     JPAContainer<SplashMessages> messages;
 
-    public MessageTabSheet() {
+    public MessagesTabSheet() {
         setSizeFull();
         VerticalLayout showMessagesTab = new VerticalLayout();
         VerticalLayout addMessageTab = new VerticalLayout();
 
-        messageTable = createShowMessageTable();
-        addMessageLabel = createAddMessage();
+        messageTable = createShowMessageTab();
+        addMessageLabel = createAddMessageTab();
 
         addTab(showMessagesTab).setCaption("Show Messages");
         showMessagesTab.addComponent(messageTable);
@@ -29,7 +29,7 @@ public class MessageTabSheet extends TabSheet {
         addMessageTab.addComponent(addMessageLabel);
     }
 
-    private Table createShowMessageTable() {
+    private Table createShowMessageTab() {
         messages = JPAContainerFactory.make(SplashMessages.class, "cinemallPU");
         Object[] messageTableColumns = {"title", "content", "publishedDate", "startDate", "endDate", "active"};
         String[] messageTableHeaders = {"Title", "Content", "Published Date", "Start Date", "End Date", "Active"};
@@ -40,13 +40,14 @@ public class MessageTabSheet extends TabSheet {
         showMessageTable.setSizeFull();
         showMessageTable.setBuffered(true);
         showMessageTable.setSelectable(true);
-        showMessageTable.setMultiSelectMode(MultiSelectMode.SIMPLE);
+        showMessageTable.setMultiSelect(true);
+        showMessageTable.setMultiSelectMode(MultiSelectMode.DEFAULT);
         showMessageTable.setImmediate(true);
 
         return showMessageTable;
     }
 
-    private Label createAddMessage() {
+    private Label createAddMessageTab() {
         Label tempLabel = new Label("Temporary Placeholder");
         return tempLabel;
     }
