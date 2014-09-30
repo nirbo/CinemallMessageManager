@@ -2,13 +2,15 @@ package org.nirbo.Views;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
+import com.vaadin.ui.*;
 import org.nirbo.Model.SplashMessages;
 
-public class MessagesTabSheet extends TabSheet {
+public class MessagesTabSheet extends TabSheet implements ItemClickEvent.ItemClickListener {
 
     Table messageTable;
     Label addMessageLabel;
@@ -22,7 +24,7 @@ public class MessagesTabSheet extends TabSheet {
         messageTable = createShowMessageTab();
         addMessageLabel = createAddMessageTab();
 
-        addTab(showMessagesTab).setCaption("Show Messages");
+        addTab(showMessagesTab).setCaption("Cinemall Messages");
         showMessagesTab.addComponent(messageTable);
         addTab(addMessageTab).setCaption("Add a Message");
         addMessageTab.addComponent(addMessageLabel);
@@ -39,15 +41,11 @@ public class MessagesTabSheet extends TabSheet {
         showMessageTable.setSizeFull();
         showMessageTable.setBuffered(true);
         showMessageTable.setSelectable(true);
-        showMessageTable.setMultiSelect(true);
         showMessageTable.setImmediate(true);
-        showMessageTable.setColumnExpandRatio("title", 2);
-        showMessageTable.setColumnExpandRatio("content", 2);
-        showMessageTable.setColumnExpandRatio("publishedDate", 1);
-        showMessageTable.setColumnExpandRatio("startDate", 1);
-        showMessageTable.setColumnExpandRatio("endDate", 1);
-        showMessageTable.setColumnExpandRatio("active", 0.4f);
+        showMessageTable.setStyleName("noScrollBars");
+        showMessageTable.setPageLength(showMessageTable.size());
 
+        showMessageTable.addItemClickListener(this);
         return showMessageTable;
     }
 
@@ -56,4 +54,15 @@ public class MessagesTabSheet extends TabSheet {
         return tempLabel;
     }
 
+    @Override
+    public void itemClick(ItemClickEvent event) {
+        Item item = event.getItem();
+        Property property = item.getItemProperty(event.getPropertyId());
+
+        Notification notification = new Notification(null, property.getValue().toString(), Notification.Type.HUMANIZED_MESSAGE);
+        notification.setStyleName("green");
+        notification.setPosition(Position.TOP_RIGHT);
+        notification.setDelayMsec(2000);
+        notification.show(Page.getCurrent());
+    }
 }

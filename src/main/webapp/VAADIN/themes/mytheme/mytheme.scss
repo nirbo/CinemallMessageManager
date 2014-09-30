@@ -29,7 +29,7 @@
 
 $v-app-loading-text: "Loading, Please Wait...";
 $v-background-color: #444d50;
-$v-focus-color: #07a9ca;
+$v-focus-color: #63b063;
 $v-focus-style: 0 0 3px 2px $v-focus-color;
 $v-bevel-depth: 40%;
 $v-gradient: v-linear 12%;
@@ -41,6 +41,7 @@ $v-bevel: inset 0 1px 2px v-tint, inset 0 0 1px (v-tint 0.1);
 $v-shadow: 0 0 0 3px rgba(0,0,0,0.32), 0 1px 0 3px rgba(255,255,255,0.14);
 $v-textfield-bevel: inset 0 2px 2px v-shade;
 $v-textfield-shadow: $v-shadow;
+$v-notification-shadow: $v-shadow;
 $v-unit-size: 40px;
 $v-overlay-shadow: 0 0 0 3px (v-shade 8), 0 5px 10px (v-shade 4);
 $v-component-group-spacing: 6px;
@@ -51,7 +52,14 @@ $v-component-group-spacing: 6px;
   @include valo;
   // Insert your own theme rules here
 
-  .v-table-resizer {
-    display: none;
+  .v-table-noScrollBars .v-scrollable {
+    overflow: hidden;
+  }
+
+  .v-Notification.green {
+    background: #636363;
+    border: 3px solid #63b063;
+    color: ghostwhite;
+    width: 12%;
   }
 }
