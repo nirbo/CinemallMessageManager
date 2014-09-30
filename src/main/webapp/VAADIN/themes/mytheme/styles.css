@@ -11798,6 +11798,10 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
+.mytheme .v-table-resizer {
+	display: none;
+}
+
 .mytheme .v-Notification.green {
 	background: #636363;
 	border: 3px solid #63b063;
