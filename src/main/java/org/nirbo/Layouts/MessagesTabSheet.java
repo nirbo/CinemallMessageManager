@@ -1,4 +1,4 @@
-package org.nirbo.Views;
+package org.nirbo.Layouts;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
@@ -35,7 +35,8 @@ public class MessagesTabSheet extends TabSheet implements ItemClickEvent.ItemCli
         Object[] messageTableColumns = {"title", "content", "publishedDate", "startDate", "endDate", "active"};
         String[] messageTableHeaders = {"Title", "Content", "Published Date", "Start Date", "End Date", "Active"};
 
-        Table showMessageTable = new Table(null, messages);
+        Table showMessageTable = new Table();
+        showMessageTable.setContainerDataSource(messages);
         showMessageTable.setVisibleColumns(messageTableColumns);
         showMessageTable.setColumnHeaders(messageTableHeaders);
         showMessageTable.setSizeFull();
@@ -44,6 +45,18 @@ public class MessagesTabSheet extends TabSheet implements ItemClickEvent.ItemCli
         showMessageTable.setImmediate(true);
         showMessageTable.setStyleName("noScrollBars");
         showMessageTable.setPageLength(showMessageTable.size());
+
+        showMessageTable.addGeneratedColumn("Message Actions",
+                new Table.ColumnGenerator() {
+                    @Override
+                    public Object generateCell(Table source, Object itemId, Object columnId) {
+                        Button messageState = new Button("Set Active");
+                        Button editRow = new Button("Edit");
+                        Button deleteRow = new Button("Delete");
+
+                        return null;
+                    }
+                });
 
         showMessageTable.addItemClickListener(this);
         return showMessageTable;

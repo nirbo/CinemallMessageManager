@@ -1,12 +1,11 @@
-package org.nirbo.UI;
+package org.nirbo;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import org.nirbo.Views.MessagesTabSheet;
+import org.nirbo.Layouts.PageLayout;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -19,20 +18,23 @@ public class MainUI extends UI {
     public static class Servlet extends VaadinServlet {
     }
 
+    private PageLayout pageLayout;
+
     @Override
     protected void init(VaadinRequest request) {
         initLayout();
     }
 
     private void initLayout() {
-        VerticalLayout vLayout = new VerticalLayout();
-        vLayout.setSizeFull();
-        vLayout.setMargin(true);
-        setContent(vLayout);
-
-        MessagesTabSheet mainTabSheet = new MessagesTabSheet();
-        vLayout.addComponent(mainTabSheet);
+        pageLayout = new PageLayout();
+        setContent(pageLayout);
     }
 
+    public PageLayout getPageLayout() {
+        return pageLayout;
+    }
 
+    public static MainUI getCurrent() {
+        return (MainUI) UI.getCurrent();
+    }
 }
