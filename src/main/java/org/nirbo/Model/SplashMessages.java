@@ -3,6 +3,9 @@ package org.nirbo.Model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * Created by nir on 10/1/14.
+ */
 @Entity
 @Table(name = "splash_messages", schema = "", catalog = "cinemall")
 public class SplashMessages {
@@ -12,11 +15,10 @@ public class SplashMessages {
     private Timestamp publishedDate;
     private Timestamp startDate;
     private Timestamp endDate;
-    private String active;
+    private Boolean active;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
     }
@@ -77,11 +79,11 @@ public class SplashMessages {
 
     @Basic
     @Column(name = "active")
-    public String getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(String active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -96,7 +98,8 @@ public class SplashMessages {
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (publishedDate != null ? !publishedDate.equals(that.publishedDate) : that.publishedDate != null) return false;
+        if (publishedDate != null ? !publishedDate.equals(that.publishedDate) : that.publishedDate != null)
+            return false;
         if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
 

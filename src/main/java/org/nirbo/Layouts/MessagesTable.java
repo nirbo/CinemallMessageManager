@@ -1,6 +1,7 @@
 package org.nirbo.Layouts;
 
 import com.vaadin.data.Item;
+import com.vaadin.data.util.converter.StringToBooleanConverter;
 import com.vaadin.event.Action;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Table;
@@ -11,7 +12,8 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
 
     private final static Action ACTION_EDIT = new Action("Edit");
     private final static Action ACTION_DELETE = new Action("Delete");
-    Item clickedItem;
+    private Item clickedItem;
+    private MessageEditor editorWindow;
 
     CinemallJPAContainer splashMessages;
 
@@ -36,6 +38,18 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
 
         setVisibleColumns(messageTableColumns);
         setColumnHeaders(messageTableHeaders);
+
+        setConverter("active", new StringToBooleanConverter() {
+            @Override
+            protected String getTrueString() {
+                return "Yes";
+            }
+
+            @Override
+            protected String getFalseString() {
+                return "No";
+            }
+        });
     }
 
     private void setTableProperties() {
@@ -61,7 +75,7 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
             @Override
             public void handleAction(Action action, Object sender, Object target) {
                 if (ACTION_EDIT == action) {
-                    MessageEditor editorWindow = new MessageEditor(clickedItem);
+                    editorWindow = new MessageEditor(clickedItem);
                     MainUI.getCurrent().addWindow(editorWindow);
                 }
 
@@ -74,6 +88,7 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
 
     @Override
     public void itemClick(ItemClickEvent event) {
+        select(event.getItemId());
         this.clickedItem = event.getItem();
     }
 
