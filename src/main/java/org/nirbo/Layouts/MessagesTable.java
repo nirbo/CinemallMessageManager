@@ -7,6 +7,7 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Table;
 import org.nirbo.MainUI;
 import org.nirbo.Persistence.CinemallJPAContainer;
+import org.vaadin.dialogs.ConfirmDialog;
 
 public class MessagesTable extends Table implements ItemClickEvent.ItemClickListener {
 
@@ -80,6 +81,17 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
                 }
 
                 if (ACTION_DELETE == action) {
+                    showDeleteConfirmation(target);
+                }
+            }
+        });
+    }
+
+    private void showDeleteConfirmation(Object target) {
+        ConfirmDialog.show(MainUI.getCurrent(), "Delete Message", "Are you sure?", "Delete", "Cancel", new ConfirmDialog.Listener() {
+            @Override
+            public void onClose(ConfirmDialog dialog) {
+                if (dialog.isConfirmed()) {
                     removeItem(target);
                 }
             }
@@ -90,6 +102,10 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
     public void itemClick(ItemClickEvent event) {
         select(event.getItemId());
         this.clickedItem = event.getItem();
+    }
+
+    public MessagesTable getMessagesTable() {
+        return this;
     }
 
 }
