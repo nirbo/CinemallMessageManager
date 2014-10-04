@@ -1,20 +1,17 @@
 package org.nirbo.Model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
-/**
- * Created by nir on 10/1/14.
- */
 @Entity
 @Table(name = "splash_messages", schema = "", catalog = "cinemall")
 public class SplashMessages {
     private Integer id;
     private String title;
     private String content;
-    private Timestamp publishedDate;
-    private Timestamp startDate;
-    private Timestamp endDate;
+    private Date publishedDate;
+    private Date startDate;
+    private Date endDate;
     private Boolean active;
 
     @Id
@@ -49,31 +46,34 @@ public class SplashMessages {
 
     @Basic
     @Column(name = "published_date")
-    public Timestamp getPublishedDate() {
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Timestamp publishedDate) {
+    public void setPublishedDate(Date publishedDate) {
         this.publishedDate = publishedDate;
     }
 
     @Basic
     @Column(name = "start_date")
-    public Timestamp getStartDate() {
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
     @Basic
     @Column(name = "end_date")
-    public Timestamp getEndDate() {
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Timestamp endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

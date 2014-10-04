@@ -1,21 +1,22 @@
-package org.nirbo.Layouts;
+package org.nirbo.Layouts.LayoutFactories;
 
 import com.vaadin.data.fieldgroup.DefaultFieldGroupFieldFactory;
 import com.vaadin.data.fieldgroup.FieldGroupFieldFactory;
 import com.vaadin.shared.ui.datefield.Resolution;
-import com.vaadin.ui.DateField;
 import com.vaadin.ui.Field;
+import com.vaadin.ui.PopupDateField;
 
 import java.util.Date;
 
 public class DateTimeFieldGroupFieldFactory implements FieldGroupFieldFactory {
 
     private FieldGroupFieldFactory defaultFactory = new DefaultFieldGroupFieldFactory();
+    private static final String DATE_FORMAT = "MMM dd, yyyy HH:mm:ss";
 
     @Override
     public <T extends Field> T createField(Class<?> dataType, Class<T> fieldType) {
 
-        if (Date.class.isAssignableFrom(dataType)) {
+        if (dataType.isAssignableFrom(Date.class)) {
             return (T) createDateTimeField();
         }
 
@@ -23,12 +24,12 @@ public class DateTimeFieldGroupFieldFactory implements FieldGroupFieldFactory {
     }
 
     protected  <T extends Field> T createDateTimeField() {
-        DateField dateTimeField = new DateField();
+        PopupDateField dateTimeField = new PopupDateField();
 
-        dateTimeField.setResolution(Resolution.MINUTE);
-        dateTimeField.setDateFormat("dd-mm-yyyy hh:MM");
-        dateTimeField.setBuffered(true);
+        dateTimeField.setResolution(Resolution.SECOND);
+        dateTimeField.setDateFormat(DATE_FORMAT);
         dateTimeField.setImmediate(true);
+        dateTimeField.setInvalidAllowed(false);
 
         return (T) dateTimeField;
     }
