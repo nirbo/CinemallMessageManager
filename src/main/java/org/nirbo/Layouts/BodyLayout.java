@@ -10,7 +10,12 @@ public class BodyLayout extends VerticalLayout {
         setSizeFull();
 
         messagesTable = new MessagesTable();
+        messagesTable.setStyleName("tableCaption");
         addComponent(messagesTable);
+    }
+
+    public MessagesTable getMessagesTable() {
+        return messagesTable;
     }
 
 }

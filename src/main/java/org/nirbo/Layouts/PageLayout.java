@@ -19,4 +19,5 @@ public class PageLayout extends VerticalLayout {
     public BodyLayout getBodyLayout() {
         return bodyLayout;
     }
+
 }

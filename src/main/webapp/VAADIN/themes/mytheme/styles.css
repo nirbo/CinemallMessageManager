@@ -11802,6 +11802,16 @@ div.v-layout.v-horizontal.v-widget {
 	display: none;
 }
 
+.mytheme .v-caption-tableCaption .v-captiontext {
+	font-size: 24px;
+	margin-bottom: 10px;
+	text-shadow: 0px 0px 3px #63b063, 0px 0px 7px #63b063, 0px 0px 11px #63b063, 0px 0px 17px #63b063, 0px 0px 27px #63b063, 0px 0px 37px #63b063, 0px 0px 47px #63b063;
+}
+
+.mytheme .v-table-caption-container {
+	text-align: center;
+}
+
 .mytheme .v-Notification.green {
 	background: #636363;
 	border: 3px solid #63b063;

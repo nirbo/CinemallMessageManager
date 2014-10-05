@@ -46,6 +46,14 @@ $v-unit-size: 40px;
 $v-overlay-shadow: 0 0 0 3px (v-shade 8), 0 5px 10px (v-shade 4);
 $v-component-group-spacing: 6px;
 
+$v-messagesTable-captionGlow: 0px 0px 3px $v-focus-color,
+                              0px 0px 7px $v-focus-color,
+                              0px 0px 11px $v-focus-color,
+                              0px 0px 17px $v-focus-color,
+                              0px 0px 27px $v-focus-color,
+                              0px 0px 37px $v-focus-color,
+                              0px 0px 47px $v-focus-color;
+
 @import "../valo/valo.scss";
 
 @mixin mytheme {
@@ -58,6 +66,16 @@ $v-component-group-spacing: 6px;
 
   .v-table-resizer {
     display: none;
+  }
+
+  .v-caption-tableCaption .v-captiontext {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-shadow: $v-messagesTable-captionGlow;
+  }
+
+  .v-table-caption-container {
+    text-align: center;
   }
 
   .v-Notification.green {

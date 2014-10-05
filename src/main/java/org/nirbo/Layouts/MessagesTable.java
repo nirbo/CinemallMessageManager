@@ -13,16 +13,18 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
 
     private final static Action ACTION_EDIT = new Action("Edit");
     private final static Action ACTION_DELETE = new Action("Delete");
+
     private Item clickedItem;
     private MessageEditor editorWindow;
-
-    CinemallJPAContainer splashMessages;
+    private CinemallJPAContainer splashMessages;
 
     public MessagesTable() {
         createTable();
     }
 
     private void createTable() {
+        setCaption("Cinemall Message Manager");
+
         populateTable();
         configColumns();
         setTableProperties();
@@ -104,8 +106,5 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
         this.clickedItem = event.getItem();
     }
 
-    public MessagesTable getMessagesTable() {
-        return this;
-    }
 
 }
