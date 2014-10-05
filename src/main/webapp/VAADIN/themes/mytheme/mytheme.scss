@@ -27,9 +27,15 @@
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
 
+$myGreen: #63b063;
+$myRed: #b06363;
+$v-red-glow: 0 0 3px $myRed, 0 0 6px $myRed, 0 0 9px $myRed, 0 0 15px $myRed;
+$v-green-glow: 0 0 3px $myGreen, 0 0 6px $myGreen, 0 0 9px $myGreen, 0 0 15px $myGreen;
+
+
 $v-app-loading-text: "Loading, Please Wait...";
 $v-background-color: #444d50;
-$v-focus-color: #63b063;
+$v-focus-color: $myGreen;
 $v-focus-style: 0 0 3px 2px $v-focus-color;
 $v-bevel-depth: 40%;
 $v-gradient: v-linear 12%;
@@ -45,14 +51,13 @@ $v-notification-shadow: $v-shadow;
 $v-unit-size: 40px;
 $v-overlay-shadow: 0 0 0 3px (v-shade 8), 0 5px 10px (v-shade 4);
 $v-component-group-spacing: 6px;
-
-$v-messagesTable-captionGlow: 0px 0px 3px $v-focus-color,
-                              0px 0px 7px $v-focus-color,
-                              0px 0px 11px $v-focus-color,
-                              0px 0px 17px $v-focus-color,
-                              0px 0px 27px $v-focus-color,
-                              0px 0px 37px $v-focus-color,
-                              0px 0px 47px $v-focus-color;
+$v-messagesTable-captionGlow: 0 0 3px $v-focus-color,
+                              0 0 7px $v-focus-color,
+                              0 0 11px $v-focus-color,
+                              0 0 17px $v-focus-color,
+                              0 0 27px $v-focus-color,
+                              0 0 37px $v-focus-color,
+                              0 0 47px $v-focus-color;
 
 @import "../valo/valo.scss";
 
@@ -70,7 +75,7 @@ $v-messagesTable-captionGlow: 0px 0px 3px $v-focus-color,
 
   .v-caption-tableCaption .v-captiontext {
     font-size: 24px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-shadow: $v-messagesTable-captionGlow;
   }
 
@@ -80,9 +85,16 @@ $v-messagesTable-captionGlow: 0px 0px 3px $v-focus-color,
 
   .v-Notification.green {
     background: #636363;
-    border: 3px solid #63b063;
+    border: 0.5px solid $myGreen;
     color: ghostwhite;
-    width: 12%;
+    box-shadow: $v-green-glow;
+  }
+
+  .v-Notification.red {
+    background: #636363;
+    border: 0.5px solid $myRed;
+    color: ghostwhite;
+    box-shadow: $v-red-glow;
   }
 
   .v-checkbox.editWindowCheckBox {

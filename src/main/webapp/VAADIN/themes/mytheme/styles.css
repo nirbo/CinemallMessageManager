@@ -11804,8 +11804,8 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .v-caption-tableCaption .v-captiontext {
 	font-size: 24px;
-	margin-bottom: 10px;
-	text-shadow: 0px 0px 3px #63b063, 0px 0px 7px #63b063, 0px 0px 11px #63b063, 0px 0px 17px #63b063, 0px 0px 27px #63b063, 0px 0px 37px #63b063, 0px 0px 47px #63b063;
+	margin-bottom: 15px;
+	text-shadow: 0 0 3px #63b063, 0 0 7px #63b063, 0 0 11px #63b063, 0 0 17px #63b063, 0 0 27px #63b063, 0 0 37px #63b063, 0 0 47px #63b063;
 }
 
 .mytheme .v-table-caption-container {
@@ -11814,9 +11814,16 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .v-Notification.green {
 	background: #636363;
-	border: 3px solid #63b063;
+	border: 0.5px solid #63b063;
 	color: ghostwhite;
-	width: 12%;
+	box-shadow: 0 0 3px #63b063, 0 0 6px #63b063, 0 0 9px #63b063, 0 0 15px #63b063;
+}
+
+.mytheme .v-Notification.red {
+	background: #636363;
+	border: 0.5px solid #b06363;
+	color: ghostwhite;
+	box-shadow: 0 0 3px #b06363, 0 0 6px #b06363, 0 0 9px #b06363, 0 0 15px #b06363;
 }
 
 .mytheme .v-checkbox.editWindowCheckBox {

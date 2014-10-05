@@ -1,42 +1,52 @@
 package org.nirbo.Layouts;
 
-import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.validator.DateRangeValidator;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.ui.*;
 import org.nirbo.Layouts.LayoutFactories.DateTimeFieldGroupFieldFactory;
 import org.nirbo.MainUI;
+import org.nirbo.Model.SplashMessages;
+import org.nirbo.Persistence.CinemallJPAContainer;
 import org.nirbo.Utilities.Utilities;
 
-public class MessageEditor extends Window implements Button.ClickListener {
+import java.util.*;
+import java.util.Calendar;
+
+public class MessageAdd extends Window implements Button.ClickListener {
 
     private FieldGroup group;
     private Button saveButton;
     private Button cancelButton;
+    private CinemallJPAContainer dataSource;
+    private SplashMessages newMessage;
 
     private Field<?> title;
     private Field<?> content;
+    private Field<?> publishedDate;
     private Field<?> startDate;
     private Field<?> endDate;
     private Field<?> active;
 
-    public MessageEditor(Item messageItem) {
-        createAndBindFields(messageItem);
+    public MessageAdd(CinemallJPAContainer dataSource) {
+        this.dataSource = dataSource;
+
+        createAndBindFields();
         configureFields();
         configureButtons();
-        configureLayouts();
 
         setContent(configureLayouts());
     }
 
-    private void createAndBindFields(Item messageItem) {
-        group = new FieldGroup(messageItem);
+    private void createAndBindFields() {
+        group = new FieldGroup(dataSource.createEntityItem(new SplashMessages()));
         group.isBuffered();
         group.setFieldFactory(new DateTimeFieldGroupFieldFactory());
 
         title = group.buildAndBind("Title", "title");
         content = group.buildAndBind("Content", "content");
+        publishedDate = group.buildAndBind("publishedDate");
         startDate = group.buildAndBind("Start Date", "startDate");
         endDate = group.buildAndBind("End Date", "endDate");
         active = group.buildAndBind("Active", "active");
@@ -46,11 +56,19 @@ public class MessageEditor extends Window implements Button.ClickListener {
         title.isRequired();
         title.setWidth(270, Unit.PIXELS);
         title.addValidator(new StringLengthValidator("The message should be between 1 and 25 characters", 1, 25, false));
+        title.getPropertyDataSource().setValue("");
         title.focus();
 
         content.isRequired();
         content.setWidth(270, Unit.PIXELS);
         content.addValidator(new StringLengthValidator("The content should be between 1 and 25 characters", 1, 25, false));
+        content.getPropertyDataSource().setValue("");
+
+        publishedDate.isRequired();
+        publishedDate.setWidth(270, Unit.PIXELS);
+        publishedDate.setReadOnly(true);
+        publishedDate.setEnabled(false);
+        publishedDate.getPropertyDataSource().setValue(new Date());
 
         startDate.isRequired();
         startDate.setWidth(270, Unit.PIXELS);
@@ -59,6 +77,7 @@ public class MessageEditor extends Window implements Button.ClickListener {
         endDate.setWidth(270, Unit.PIXELS);
 
         active.setStyleName("editWindowCheckBox");
+        active.getPropertyDataSource().setValue(false);
     }
 
     private void configureButtons() {
@@ -79,36 +98,50 @@ public class MessageEditor extends Window implements Button.ClickListener {
         buttonsLayout.addComponent(saveButton);
         buttonsLayout.addComponent(cancelButton);
 
-        VerticalLayout windowLayout = new VerticalLayout();
-        windowLayout.setSpacing(true);
-        windowLayout.setMargin(true);
+        VerticalLayout addMessageForm = new VerticalLayout();
+        addMessageForm.setSpacing(true);
+        addMessageForm.setMargin(true);
 
-        windowLayout.addComponent(title);
-        windowLayout.setComponentAlignment(title, Alignment.MIDDLE_CENTER);
+        addMessageForm.addComponent(title);
+        addMessageForm.setComponentAlignment(title, Alignment.MIDDLE_CENTER);
 
-        windowLayout.addComponent(content);
-        windowLayout.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
+        addMessageForm.addComponent(content);
+        addMessageForm.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
 
-        windowLayout.addComponent(startDate);
-        windowLayout.setComponentAlignment(startDate, Alignment.MIDDLE_CENTER);
+        addMessageForm.addComponent(publishedDate);
+        addMessageForm.setComponentAlignment(publishedDate, Alignment.MIDDLE_CENTER);
 
-        windowLayout.addComponent(endDate);
-        windowLayout.setComponentAlignment(endDate, Alignment.MIDDLE_CENTER);
+        addMessageForm.addComponent(startDate);
+        addMessageForm.setComponentAlignment(startDate, Alignment.MIDDLE_CENTER);
 
-        windowLayout.addComponent(active);
-        windowLayout.setComponentAlignment(active, Alignment.MIDDLE_CENTER);
+        addMessageForm.addComponent(endDate);
+        addMessageForm.setComponentAlignment(endDate, Alignment.MIDDLE_CENTER);
 
-        windowLayout.addComponent(buttonsLayout);
-        windowLayout.setComponentAlignment(buttonsLayout, Alignment.MIDDLE_CENTER);
+        addMessageForm.addComponent(active);
+        addMessageForm.setComponentAlignment(active, Alignment.MIDDLE_CENTER);
+
+        addMessageForm.addComponent(buttonsLayout);
+        addMessageForm.setComponentAlignment(buttonsLayout, Alignment.MIDDLE_CENTER);
 
         center();
         setModal(true);
         setResizable(false);
         setSizeUndefined();
         setImmediate(true);
-        setCaption("Edit Message");
+        setCaption("Add a New Message");
 
-        return windowLayout;
+        return addMessageForm;
+    }
+
+    private void prepareNewEntity() {
+        newMessage = new SplashMessages();
+
+        newMessage.setTitle(title.getValue().toString());
+        newMessage.setContent(content.getValue().toString());
+        newMessage.setPublishedDate((Date) publishedDate.getValue());
+        newMessage.setStartDate((Date) startDate.getValue());
+        newMessage.setEndDate((Date) endDate.getValue());
+        newMessage.setActive((Boolean) active.getValue());
     }
 
     @Override
@@ -121,14 +154,16 @@ public class MessageEditor extends Window implements Button.ClickListener {
         if (event.getButton().getCaption().equals("Save")) {
             try {
                 group.commit();
+                prepareNewEntity();
+                dataSource.addEntity(newMessage);
+                MainUI.getCurrent().getPageLayout().getBodyLayout().getMessagesTable().refreshRowCache();
                 MainUI.getCurrent().removeWindow(this);
             } catch (FieldGroup.CommitException e) {
                 e.printStackTrace();
-                Utilities.notification("Failed to edit the message!", "red");
+                Utilities.notification("Failed to add the message!", "red");
             }
         }
     }
-
 
 
 }
