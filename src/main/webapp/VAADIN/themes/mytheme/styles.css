@@ -11993,6 +11993,10 @@ div.v-layout.v-horizontal.v-widget {
 	text-align: center;
 }
 
+.mytheme .v-table-row:hover, .mytheme .v-table-row-odd:hover {
+	background-color: #63b063;
+}
+
 .mytheme .v-Notification.green {
 	background: #636363;
 	border: 0.5px solid #63b063;

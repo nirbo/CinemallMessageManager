@@ -83,6 +83,10 @@ $v-messagesTable-captionGlow: 0 0 3px $v-focus-color,
     text-align: center;
   }
 
+  .v-table-row:hover, .v-table-row-odd:hover {
+    background-color: $myGreen;
+  }
+
   .v-Notification.green {
     background: #636363;
     border: 0.5px solid $myGreen;

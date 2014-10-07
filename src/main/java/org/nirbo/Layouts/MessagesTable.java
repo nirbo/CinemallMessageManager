@@ -65,7 +65,6 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
     private void setTableProperties() {
         setSizeFull();
         setBuffered(true);
-        setSelectable(true);
         setImmediate(true);
         setReadOnly(false);
         setStyleName("noScrollBars");
@@ -85,7 +84,6 @@ public class MessagesTable extends Table implements ItemClickEvent.ItemClickList
             @Override
             public void handleAction(Action action, Object sender, Object target) {
                 if (ACTION_ADD == action) {
-//                    Utilities.notification("Add a Message", "green");
                     addMessageWindow = new MessageAdd(splashMessages);
                     MainUI.getCurrent().addWindow(addMessageWindow);
                 }
